@@ -643,6 +643,9 @@ mod rand {
                 let mut hasher = rand_state.build_hasher();
 
                 // Hash some unique-ish data to generate some new state
+                #[cfg(madsim)]
+                1.hash(&mut hasher);
+                #[cfg(not(madsim))]
                 COUNTER.fetch_add(1, Relaxed).hash(&mut hasher);
 
                 // Get the seed
